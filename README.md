@@ -227,7 +227,7 @@ Run the script
 /IARIADevIDFusion/audio/train_image.py --visual_content Native --n_fold 0 --model ResNet50 --project_dir /IARIADevIDFusion/image/ --epochs 100 --lr 1e-4 --vision_frames_dir /IARIADevIDFusion/datasets/VISION/extractedFrames --optimizer Adam --results_dir /IARIADevIDFusion/image/results/
 ```
 
-This script creates the folder `IARIADevIDFusion/image/results/` with subfolders `Native`, `WA`, and `YT`, where the best model `model_best.ckpt` is saved for each `fold{i}`, with `i=0, 1, 2, 3, 4`. Each fold folder has the same structure when training the audio network.
+This script creates the folder `IARIADevIDFusion/image/results/` with subfolders `Native`, `WA`, and `YT`, where the best model `model_best.ckpt` is saved for each `fold{i}`, with `i = 0, 1, 2, 3, 4`. Each fold folder has the same structure when training the audio network.
 
 ### 11. Evaluate image network
 Run the script 
@@ -254,3 +254,17 @@ Run the script
 /IARIADevIDFusion/significance_test.py --n_run_audio 1 --audio_project_dir /IARIADevIDFusion/audio --n_run_image 1 --image_project_dir /IARIADevIDFusion/image --n_fold 0 --visual_content YT
 ```
 **This script produces the results in Tables II and III along with the results in Tables IV and V.**
+
+
+## Reference
+If you use this code in your experiments please cite this work by using the following bibtex entry:
+
+```
+@inproceedings{tobeUpdated,
+  title={Camera Model Identification Using Audio and Visual Content from Videos},
+  author={Tsingalis, Ioannis and Korgialas, Christos and Kotropoulos, Constantine},
+  booktitle={IARIA Annual Congress on Frontiers in Science, Technology, Services, and Applications},
+  pages={tobeUpdated},
+  year={2024}
+}
+```
