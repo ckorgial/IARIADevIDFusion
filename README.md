@@ -1,11 +1,6 @@
-# Camera Model Identification Using Audio and Visual Content from Videos
+# Explainable Camera Model Identification Employing log-Mel Spectrograms from Videos’ Audio
 
-This repository contains the code for the paper *Camera Model Identification Using Audio and Visual Content from Videos* introduced
-by Ioannis Tsingalis, Christos Korgialas and Constantine Kotropoulos
-
-## Abstract
-
-The identification of device brands and models plays a pivotal role in the realm of multimedia forensic applications. This paper presents a framework capable of identifying devices using audio, visual content, or a fusion of them. The fusion of visual and audio content occurs in a later stage through the application of two fundamental fusion rules, namely the product and the sum rule. The device identification problem is tackled as a classification one by leveraging Convolutional Neural Networks. Experimental evaluation illustrates that the proposed framework exhibits promising classification performance when using audio or visual content independently. Furthermore, although the fusion results don't consistently surpass both individual modalities, they demonstrate promising potential for enhancing classification performance. Future research could concentrate on refining the fusion process to consistently improve classification performance in both modalities. Finally, a statistical significance test is performed for a more in-depth study of the overall classification results. 
+This repository contains the code for the paper *Explainable Camera Model Identification Employing log-Mel Spectrograms from Videos’ Audio* introduced by Christos Korgialas, Ioannis Tsingalis, and Constantine Kotropoulos
 
 ----------------------------------------------------------
 ## Usage
@@ -166,7 +161,14 @@ Run the script
 
 This script creates the folder `IARIADevIDFusion/splits/JoI_splits/` with subfolders `Native`, `WA`, and `YT`.
 
-### 7. Train audio network
+### 7. Grad-CAM Heatmap Generation
+
+Run the script 
+```angular2
+/IARIADevIDFusion/gradcam_fusion.py
+```
+
+### 8. Train audio network
 Run the script 
 ```angular2
 /IARIADevIDFusion/audio/train_audio.py --visual_content YT --n_fold 0 --model MobileNetV3Large --results_dir results --epochs 100 --lr 1e-4 --optimizer Adam --project_dir /IARIADevIDFusion/audio/ --split_dir /IARIADevIDFusion/splits/JoI_splits --mel_dir /IARIADevIDFusion/audio/extractedMel
@@ -186,7 +188,7 @@ This script creates the folder `IARIADevIDFusion/audio/results/` with subfolders
     └── val_loss.log
 ```
 
-### 8. Evaluate audio network
+### 9. Evaluate audio network
 Run the script 
 ```angular2
 /IARIADevIDFusion/audio/eval_audio.py --n_run 1 --results_dir /IARIADevIDFusion/audio/results/ --project_dir /IARIADevIDFusion/audio/ --mel_dir /IARIADevIDFusion/audio/extractedMel --visual_content YT --n_fold 0
@@ -194,7 +196,7 @@ Run the script
 
 This script uses the best model `model_best.ckpt` of each fold and produced the accuracy results. 
 
-### 9. Extract video frames
+### 10. Extract video frames
 Run the script 
 ```angular2
 /IARIADevIDFusion/datasets/VISION/extract_frames.py
@@ -221,7 +223,7 @@ This script creates the folder `/IARIADevIDFusion/datasets/VISION/extractedFrame
 
 Each folder contains the video frames saved in `.jpg` format.
 
-### 10. Train image network
+### 11. Train image network
 Run the script 
 ```angular2
 /IARIADevIDFusion/audio/train_image.py --visual_content Native --n_fold 0 --model ResNet50 --project_dir /IARIADevIDFusion/image/ --epochs 100 --lr 1e-4 --vision_frames_dir /IARIADevIDFusion/datasets/VISION/extractedFrames --optimizer Adam --results_dir /IARIADevIDFusion/image/results/
@@ -229,7 +231,7 @@ Run the script
 
 This script creates the folder `IARIADevIDFusion/image/results/` with subfolders `Native`, `WA`, and `YT`, where the best model `model_best.ckpt` is saved for each `fold{i}`, with `i = 0, 1, 2, 3, 4`. Each fold folder has the same structure when training the audio network.
 
-### 11. Evaluate image network
+### 12. Evaluate image network
 Run the script 
 ```angular2
 /IARIADevIDFusion/image/eval_image.py --n_run 1 --visual_content Native --n_fold 0 --vision_frames_dir /IARIADevIDFusion/datasets/VISION/extractedFrames --project_dir /IARIADevIDFusion/image/ --results_dir /IARIADevIDFusion/image/results/ --split_dir /IARIADevIDFusion/splits/JoI_splits
@@ -237,7 +239,7 @@ Run the script
 
 This script uses the best model `model_best.ckpt` of each fold and produces `proba.pkl` which contains the classification probabilities of each video frame. These probabilities are used to obtain the accuracy results.
 
-### 12. Late fusion
+### 13. Late fusion
 Run the script 
 
 ```angular2html
@@ -247,7 +249,7 @@ Run the script
 **This script produces the results in Tables II and III.**
 
 
-### 13. Significance test
+### 14. Significance test
 Run the script 
 
 ```angular2html
@@ -261,10 +263,10 @@ If you use this code in your experiments please cite this work by using the foll
 
 ```
 @inproceedings{tobeUpdated,
-  title={Camera Model Identification Using Audio and Visual Content from Videos},
-  author={Tsingalis, Ioannis and Korgialas, Christos and Kotropoulos, Constantine},
-  booktitle={IARIA Annual Congress on Frontiers in Science, Technology, Services, and Applications},
-  pages={tobeUpdated},
+  title={Explainable Camera Model Identification Employing log-Mel Spectrograms from Videos’ Audio},
+  author={Korgialas, Christos and Tsingalis, Ioannis and Kotropoulos, Constantine},
+  booktitle={Asilomar Conference on Signals, Systems, and Computers},
+  pages={1--5},
   year={2024}
 }
 ```
